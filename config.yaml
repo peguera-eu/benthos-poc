@@ -1,0 +1,23 @@
+logger:
+  prefix: benthos
+  level: INFO
+  format: json
+  add_timestamp: true
+  static_fields:
+    '@service': gangstaifier
+
+input:
+  label: "input"
+  generate:
+    mapping: root = "message"
+    interval: 2s
+    count: 5
+
+pipeline:
+  processors:
+    - type: gangstaify
+      prop: "og"
+    - log:
+        message: "Gangstaified"
+        fields:
+          test: "Testando"
